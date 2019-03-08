@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person.js'
-import person from './Person/Person.js';
 
 class App extends Component {
   state = {
@@ -47,10 +46,12 @@ class App extends Component {
    }
   render() {
     const style = {
-      backgroundColor:'white',
+      backgroundColor:'green',
       border:'1px solid blue',
       cursor:"pointer",
+      color:"white",
       padding:'8px'
+
     }
     let persons = null;
     if(this.state.showPersons){
@@ -68,12 +69,20 @@ class App extends Component {
         
         </div>
       )
+      style.backgroundColor = 'red'
     }
-    
+    const classes = [];
+    if(this.state.PersonArr.length<=2){
+      classes.push('red');
+    }
+    if(this.state.PersonArr.length<=1){
+      classes.push('bold');
+    }
 
     return (
       <div className="App">
         <h1>React</h1>
+        <p className={classes.join(' ')}>Microsoft Corporation</p>
         <button style={style} onClick={this.togglePersonHandler}>Toggle Persons</button>
         {persons}
       </div>
