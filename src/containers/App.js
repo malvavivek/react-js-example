@@ -1,7 +1,8 @@
 // import React, { useState } from 'react';
 import React, { Component } from 'react';
-import './App.css';
-import Person from './Person/Person.js'
+import Style from './App.css';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit'
 
 class App extends Component {
   state = {
@@ -45,45 +46,27 @@ class App extends Component {
 
    }
   render() {
-    const style = {
-      backgroundColor:'green',
-      border:'1px solid blue',
-      cursor:"pointer",
-      color:"white",
-      padding:'8px'
 
-    }
     let persons = null;
+    
     if(this.state.showPersons){
       persons =(
-        <div>
-          {this.state.PersonArr.map((person,index)=>{
-            return <Person 
-            click = {()=>this.deletePersonHandler(index)}
-            name={person.name}
-            age={person.age}
-            key={person.id}
-            changed={(event)=>this.nameChangeHandler(event,person.id)}
-            />
-          })}
-        
-        </div>
+          <Persons 
+          PersonArr = {this.state.PersonArr}
+          clicked ={this.deletePersonHandler}
+          changed={this.nameChangeHandler}
+          />
       )
-      style.backgroundColor = 'red'
-    }
-    const classes = [];
-    if(this.state.PersonArr.length<=2){
-      classes.push('red');
-    }
-    if(this.state.PersonArr.length<=1){
-      classes.push('bold');
-    }
 
+    }
+   
     return (
-      <div className="App">
-        <h1>React</h1>
-        <p className={classes.join(' ')}>Microsoft Corporation</p>
-        <button style={style} onClick={this.togglePersonHandler}>Toggle Persons</button>
+      <div className={Style.App}>
+        <Cockpit 
+        showPersons = {this.state.showPersons}
+        PersonArr = {this.state.PersonArr}
+        clicked = {this.togglePersonHandler}
+        />
         {persons}
       </div>
     );

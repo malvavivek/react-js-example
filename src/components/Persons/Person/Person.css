@@ -6,3 +6,9 @@
     text-align: center;
     box-shadow: 0 2px 3px auto;
 }
+
+@media(min-width:600px) {
+    .Person{
+        width: 450px;
+    }
+} 
