@@ -14,20 +14,32 @@ super(props);
       {id:3,name:'Production',age:2},
     ],
     otherState:'Some Other value',
-    showPersons:false
+    showPersons:false,
+    showCockpit:true
   }
   }
   static getDerivedStateFromProps(props,state) {
     console.log('[App.js] getDerivedStateFromProps',props)
     return state;
   }
-  componentWillMount(){
-    console.log('[App.js] componentWillMount')
-  }
-  componentDidMount(){
-    console.log('[App.js] componentDidMount')
-  }
+  // componentWillMount(){
+  //   console.log('[App.js] componentWillMount')
+  // }
+  // componentDidMount(){
+  //   console.log('[App.js] componentDidMount')
+  // }
+  // getSnapshotBeforeUpdate(){
+  //   console.log('[App.js] getSnapshotBeforeUpdate')
+  //   return null;
+  // }
+  // shouldComponentUpdate(){
+  // console.log('[App.js] shouldComponentUpdate')
+  // return true;
+  // }
  
+  // componentDidUpdate(){
+  //   console.log('[App.js] componentDidUpdate')
+  // }
   switchNameHandler = (newName)=>{
    this.setState ({
     PersonArr:[
@@ -76,11 +88,13 @@ super(props);
    
     return (
       <div className={Style.App}>
-        <Cockpit 
+      <button onClick={()=>this.setState({showCockpit:false})}>Clear Cockpit</button>
+        {this.state.showCockpit ? <Cockpit 
+        title={this.props.appTitle}
         showPersons = {this.state.showPersons}
-        PersonArr = {this.state.PersonArr}
+        personsLength = {this.state.PersonArr.length}
         clicked = {this.togglePersonHandler}
-        />
+        /> : null}
         {persons}
       </div>
     );
