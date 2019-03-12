@@ -5,7 +5,9 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit'
 
 class App extends Component {
-  state = {
+  constructor(props){
+super(props);
+  this.state={
     PersonArr:[
       {id:1,name:'Max',age:20},
       {id:2,name:'Emily',age:21},
@@ -14,6 +16,18 @@ class App extends Component {
     otherState:'Some Other value',
     showPersons:false
   }
+  }
+  static getDerivedStateFromProps(props,state) {
+    console.log('[App.js] getDerivedStateFromProps',props)
+    return state;
+  }
+  componentWillMount(){
+    console.log('[App.js] componentWillMount')
+  }
+  componentDidMount(){
+    console.log('[App.js] componentDidMount')
+  }
+ 
   switchNameHandler = (newName)=>{
    this.setState ({
     PersonArr:[
