@@ -2,7 +2,9 @@
 import React, { Component } from 'react';
 import Style from './App.css';
 import Persons from '../components/Persons/Persons';
-import Cockpit from '../components/Cockpit/Cockpit'
+import Cockpit from '../components/Cockpit/Cockpit';
+import Aux from "../hoc/Auxiliary";
+import withClass from '../hoc/withClass'
 
 class App extends Component {
   constructor(props){
@@ -87,7 +89,7 @@ super(props);
     }
    
     return (
-      <div className={Style.App}>
+      <Aux>
       <button onClick={()=>this.setState({showCockpit:false})}>Clear Cockpit</button>
         {this.state.showCockpit ? <Cockpit 
         title={this.props.appTitle}
@@ -96,13 +98,13 @@ super(props);
         clicked = {this.togglePersonHandler}
         /> : null}
         {persons}
-      </div>
+      </Aux>
     );
   }
 }
 
 
-export default App;
+export default withClass(App,Style.App);
 // const App = props =>{
 
 //    const [personsState,setPersonsState] =  useState({

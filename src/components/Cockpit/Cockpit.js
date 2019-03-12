@@ -6,7 +6,7 @@ const cockpit =(props)=>{
   useEffect(() => {
         console.log('[Cockpit.js] useEffect')
         setTimeout(()=>{
-          alert('Data saved')
+          console.log('Data saved')
         },1000)
         return ()=>{
           console.log('[Cockpit.js] CleanUp')
