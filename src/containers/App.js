@@ -4,7 +4,7 @@ import Style from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 import Aux from "../hoc/Auxiliary";
-import withClass from '../hoc/withClass'
+import withClass from '../hoc/withClass';
 
 class App extends Component {
   constructor(props){
@@ -13,11 +13,13 @@ super(props);
     PersonArr:[
       {id:1,name:'Max',age:20},
       {id:2,name:'Emily',age:21},
-      {id:3,name:'Production',age:2},
+      {id:3,name:'Steve',age:2},
     ],
     otherState:'Some Other value',
     showPersons:false,
-    showCockpit:true
+    showCockpit:true,
+    changeCounter:0,
+    authenticated:false
   }
   }
   static getDerivedStateFromProps(props,state) {
@@ -59,8 +61,11 @@ super(props);
     person.name = event.target.value; 
     const persons = [...this.state.PersonArr]
     persons[personIndex] = person;
-    this.setState ({
-      PersonArr:persons
+    this.setState ((prevState,props)=>{
+      return {
+        PersonArr:persons,
+        changeCounter:prevState.changeCounter + 1
+      }
     })
    }
    togglePersonHandler = ()=>{
@@ -73,6 +78,11 @@ super(props);
      this.setState({PersonArr:persons})
 
    }
+   loginHandler =()=>{
+     this.setState({
+      authenticated:true
+     })
+   }
   render() {
 
     let persons = null;
@@ -83,6 +93,7 @@ super(props);
           PersonArr = {this.state.PersonArr}
           clicked ={this.deletePersonHandler}
           changed={this.nameChangeHandler}
+          isAuthenticated={this.state.authenticated}
           />
       )
 
@@ -96,6 +107,7 @@ super(props);
         showPersons = {this.state.showPersons}
         personsLength = {this.state.PersonArr.length}
         clicked = {this.togglePersonHandler}
+        login = {this.loginHandler}
         /> : null}
         {persons}
       </Aux>
