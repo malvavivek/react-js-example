@@ -4,15 +4,18 @@ import PropTypes from 'prop-types';
 import Aux from '../../../hoc/Auxiliary';
 import withClass from '../../../hoc/withClass';
 // import { classes } from '../../../../node_modules/coa';
+import AuthContext from '../../../context/auth-context';
 class Person extends Component{
     constructor(props){
         super(props);
         this.inputElementRef = React.createRef();
     }
+    static contextType =AuthContext;
     componentDidMount(){
         // this.inputElement.focus();
+        console.log(this.context.authenticated);
         this.inputElementRef.current.focus();   //after React 16.3
-        console.log('[Person.js] componentDidMount')
+        // console.log('[Person.js] componentDidMount')
       }
       shouldComponentUpdate(nextProps,nextState){
       console.log('[Person.js] shouldComponentUpdate')
@@ -29,7 +32,7 @@ class Person extends Component{
         console.log('[Person.js] rendering...')
         return (
             <Aux> 
-                {this.props.isAuth? <p>Authenticated User</p>  : <p>Please Login</p>}
+                {this.context.authenticated? <p>Authenticated User</p>  : <p>Please Login</p>}
                 <p onClick={this.props.click}>I'm name is {this.props.name} and I'm {this.props.age} years old</p>
                 <p>{this.props.children}</p>
                 <input 

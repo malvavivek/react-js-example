@@ -5,6 +5,7 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 import Aux from "../hoc/Auxiliary";
 import withClass from '../hoc/withClass';
+import AuthContext from '../context/auth-context'
 
 class App extends Component {
   constructor(props){
@@ -29,9 +30,11 @@ super(props);
   // componentWillMount(){
   //   console.log('[App.js] componentWillMount')
   // }
-  // componentDidMount(){
-  //   console.log('[App.js] componentDidMount')
-  // }
+
+
+  componentDidMount(){
+    console.log('[App.js] componentDidMount')
+  }
   // getSnapshotBeforeUpdate(){
   //   console.log('[App.js] getSnapshotBeforeUpdate')
   //   return null;
@@ -102,14 +105,19 @@ super(props);
     return (
       <Aux>
       <button onClick={()=>this.setState({showCockpit:false})}>Clear Cockpit</button>
+      <AuthContext.Provider
+      value={{
+        authenticated:this.state.authenticated,
+        login:this.loginHandler}}
+      >
         {this.state.showCockpit ? <Cockpit 
         title={this.props.appTitle}
         showPersons = {this.state.showPersons}
         personsLength = {this.state.PersonArr.length}
         clicked = {this.togglePersonHandler}
-        login = {this.loginHandler}
         /> : null}
         {persons}
+        </AuthContext.Provider>
       </Aux>
     );
   }
